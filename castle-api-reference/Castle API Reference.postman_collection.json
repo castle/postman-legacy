@@ -1,0 +1,1408 @@
+{
+	"info": {
+		"_postman_id": "fa961ea5-e9fd-4e90-a173-357624971353",
+		"name": "Castle API Reference",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate a User Login",
+			"item": [
+				{
+					"name": "/v1/authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b1a8d11-3423-4a7b-935e-dc2b905d3e42",
+								"exec": [
+									"var schema = {",
+									"    \"properties\": {",
+									"        \"action\": {",
+									"            \"type\": \"string\",",
+									"            \"enum\": [\"allow\", \"challenge\", \"deny\"]",
+									"        },",
+									"        \"user_id\": {",
+									"            \"type\": \"string\"",
+									"        },",
+									"        \"device_token\": {",
+									"            \"type\": \"string\"",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"var castleResponse = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"  pm.expect(tv4.validate(responseBody, schema)).to.be.true;",
+									"});",
+									"",
+									"pm.environment.set(\"device_token\", castleResponse.device_token);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d01cad44-46c1-43f8-90c5-05a99fa2b122",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"sent_at\": \"{{$timestamp}}\",\n  \"event\": \"$login.succeeded\",\n  \"user_id\": \"{{user_id}}\",\n  \"user_traits\": {\n    \"email\": \"{{user_email}}\",\n    \"registered_at\": \"{{registered_at}}\"\n  },\n  \"properties\": {\n    \"event\": \"property\"\n  },\n  \"context\": {\n    \"client_id\": \"faf117b2-9457-4e3b-9c13-d2795656b78e-094e81caa170c1d2\",\n    \"ip\": \"37.46.187.90\",\n    \"headers\": {\n      \"User-Agent\": \"Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko\",\n      \"Accept\": \"text/html\",\n      \"Accept-Language\": \"en-us,en;q=0.5\",\n      \"Accept-Encoding\": \"gzip, deflate, br\",\n      \"Connection\": \"Keep-Alive\",\n      \"Content-Length\": \"122\",\n      \"Content-Type\": \"application/javascript\",\n      \"Origin\": \"https://castle.io/\",\n      \"Referer\": \"https://castle.io/login\"\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "https://api.castle.io/v1/authenticate",
+							"protocol": "https",
+							"host": [
+								"api",
+								"castle",
+								"io"
+							],
+							"path": [
+								"v1",
+								"authenticate"
+							]
+						},
+						"description": "Castle /authenticate endpoint with an 'allow' verdict"
+					},
+					"response": [
+						{
+							"name": "/authenticate [deny]",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"event\": \"$login.succeeded\",\n    \"user_id\": \"e325bcdd10ac\",\n    \"user_traits\": {\n        \"email\": \"johan@castle.io\",\n        \"registered_at\": \"2018-07-10T17:37:39.123Z\"\n    },\n    \"context\": {\n        \"client_id\": \"faf117b2-9457-4e3b-9c13-d2795656b78e-094e81caa170c1d2\",\n        \"ip\": \"37.46.187.90\",\n        \"headers\": {\n            \"User-Agent\": \"Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko\",\n            \"Accept\": \"text/html\",\n            \"Accept-Language\": \"en-us,en;q=0.5\",\n            \"Accept-Encoding\": \"gzip, deflate, br\",\n            \"Connection\": \"Keep-Alive\",\n            \"Content-Length\": \"122\",\n            \"Content-Type\": \"application/javascript\",\n            \"Origin\": \"https://castle.io/\",\n            \"Referer\": \"https://castle.io/login\"\n        }\n    }\n}"
+								},
+								"url": {
+									"raw": "https://api.castle.io/v1/authenticate",
+									"protocol": "https",
+									"host": [
+										"api",
+										"castle",
+										"io"
+									],
+									"path": [
+										"v1",
+										"authenticate"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 22 May 2019 17:00:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "204"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"0d0cc5b7745d51e805ced0a308f47d3b\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "997cbfaf-d6ff-4f17-a707-bf534e01bdc9"
+								},
+								{
+									"key": "Server",
+									"value": "castle.io"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"action\": \"deny\",\n    \"user_id\": \"e325bcdd10ac\",\n    \"device_token\": \"eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlbiI6Ijd5emdHelVoeHZ5aUdwd2o3ektVUUpuczRNNkVYY0VCIiwidmVyc2lvbiI6MC4xfQ.W9ur52GDZ43Zs3PHgVMKiaPHl4qMBTLf5YvG6OjbRZ0\"\n}"
+						},
+						{
+							"name": "/authenticate [allow]",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"event\": \"$login.succeeded\",\n    \"user_id\": \"e325bcdd10ac\",\n    \"user_traits\": {\n        \"email\": \"johan@castle.io\",\n        \"registered_at\": \"2018-07-10T17:37:39.123Z\"\n    },\n    \"context\": {\n        \"client_id\": \"faf117b2-9457-4e3b-9c13-d2795656b78e-094e81caa170c1d2\",\n        \"ip\": \"37.46.187.90\",\n        \"headers\": {\n            \"User-Agent\": \"Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko\",\n            \"Accept\": \"text/html\",\n            \"Accept-Language\": \"en-us,en;q=0.5\",\n            \"Accept-Encoding\": \"gzip, deflate, br\",\n            \"Connection\": \"Keep-Alive\",\n            \"Content-Length\": \"122\",\n            \"Content-Type\": \"application/javascript\",\n            \"Origin\": \"https://castle.io/\",\n            \"Referer\": \"https://castle.io/login\"\n        }\n    }\n}"
+								},
+								"url": {
+									"raw": "https://api.castle.io/v1/authenticate",
+									"protocol": "https",
+									"host": [
+										"api",
+										"castle",
+										"io"
+									],
+									"path": [
+										"v1",
+										"authenticate"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 22 May 2019 17:00:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "204"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"0d0cc5b7745d51e805ced0a308f47d3b\""
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "997cbfaf-d6ff-4f17-a707-bf534e01bdc9"
+								},
+								{
+									"key": "Server",
+									"value": "castle.io"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"action\": \"allow\",\n    \"user_id\": \"e325bcdd10ac\",\n    \"device_token\": \"eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlbiI6Ijd5emdHelVoeHZ5aUdwd2o3ektVUUpuczRNNkVYY0VCIiwidmVyc2lvbiI6MC4xfQ.W9ur52GDZ43Zs3PHgVMKiaPHl4qMBTLf5YvG6OjbRZ0\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Call the Castle /authenticate endpoint in order to receive a verdict regarding the current user and context"
+		},
+		{
+			"name": "Track an Event",
+			"item": [
+				{
+					"name": "/v1/track",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d23447c3-9af2-4386-b446-eb3f129a445a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6a1fe2ff-a4ed-453d-8259-4ca5f55b72ee",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sent_at\": \"{{$timestamp}}\",\n    \"event\": \"$login.succeeded\",\n    \"user_id\": \"{{user_id}}\",\n    \"user_traits\": {\n        \"email\": \"{{user_email}}\",\n        \"registered_at\": \"{{registered_at}}\"\n    },\n    \"properties\": {\n        \"event\": \"property\"\n    },\n    \"context\": {\n        \"client_id\": \"faf117b2-9457-4e3b-9c13-d2795656b78e-094e81caa170c1d2\",\n        \"ip\": \"37.46.187.90\",\n        \"headers\": {\n            \"User-Agent\": \"Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko\",\n            \"Accept\": \"text/html\",\n            \"Accept-Language\": \"en-us,en;q=0.5\",\n            \"Accept-Encoding\": \"gzip, deflate, br\",\n            \"Connection\": \"Keep-Alive\",\n            \"Content-Length\": \"122\",\n            \"Content-Type\": \"application/javascript\",\n            \"Origin\": \"https://castle.io/\",\n            \"Referer\": \"https://castle.io/login\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "https://api.castle.io/v1/track",
+							"protocol": "https",
+							"host": [
+								"api",
+								"castle",
+								"io"
+							],
+							"path": [
+								"v1",
+								"track"
+							]
+						},
+						"description": "Track an event when user credentials failed to pass authentication"
+					},
+					"response": [
+						{
+							"name": "/track [successful request]",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"event\": \"$login.failed\",\n    \"user_id\": \"e325bcdd10ac\",\n    \"user_traits\": {\n        \"email\": \"admin@cstl.io\",\n        \"registered_at\": \"2018-07-10T17:37:39.123Z\"\n    },\n    \"context\": {\n        \"client_id\": \"a97b492d-dcc3-4fc1-87d6-65682955afa5\",\n        \"ip\": \"37.46.187.90\",\n        \"headers\": {\n            \"User-Agent\": \"Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko\",\n            \"Accept\": \"text/html\",\n            \"Accept-Language\": \"en-us,en;q=0.5\"\n        }\n    }\n}"
+								},
+								"url": {
+									"raw": "https://api.castle.io/v1/track",
+									"protocol": "https",
+									"host": [
+										"api",
+										"castle",
+										"io"
+									],
+									"path": [
+										"v1",
+										"track"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 22 May 2019 20:59:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Server",
+									"value": "castle.io"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "Valid events to send to the Castle /v1/track endpoint include:\n- $login.succeeded\n- $login.failed\n- $logout.succeeded\n- $profile_update.succeeded\n- $profile_update.failed\n- $registration.succeeded\n- $registration.failed\n- $password_reset.succeeded\n- $password_reset.failed\n- $password_reset_request.succeeded\n- $password_reset_request.failed\n- $incident.mitigated\n- $review.escalated\n- $review.resolved\n- $challenge.requested\n- $challenge.succeeded\n- $challenge.failed\n- $transaction.attempted\n- $session.extended",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c5f13682-a359-4c75-bb58-fabf064a8935",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e7c9493-b594-4d6e-a163-53ac292c4d47",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Device Management",
+			"item": [
+				{
+					"name": "All User Devices",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c1f6a35a-d09a-470d-90a7-c1574234dfb8",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ee6f4da4-391b-44b8-afd2-90f698ae8a41",
+								"exec": [
+									"var responseSchema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema\",",
+									"    \"$id\": \"https://castle.io/schemas/user-devices.json\",",
+									"    \"type\": \"object\",",
+									"    \"title\": \"User Device\",",
+									"    \"required\": [",
+									"        \"total_count\",",
+									"        \"data\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"total_count\": {",
+									"            \"type\": \"number\",",
+									"            \"examples\": [",
+									"                3",
+									"            ]",
+									"        },",
+									"        \"data\": {",
+									"            \"type\": \"array\",",
+									"            \"uniqueItems\": true,",
+									"            \"items\": {",
+									"                \"$ref\": \"#/definitions/user_device\"",
+									"            }",
+									"        }",
+									"    },",
+									"    \"definitions\": {",
+									"        \"user_device\": {",
+									"            \"$id\": \"#/definitions/user_device\",",
+									"            \"title\": \"Device Schema\",",
+									"            \"description\": \"Details about a single device of a user\",",
+									"            \"type\": \"object\",",
+									"            \"required\": [",
+									"                \"token\",",
+									"                \"created_at\"",
+									"            ],",
+									"            \"properties\": {",
+									"                \"token\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [",
+									"                        \"eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlbiI6ImhZeDNtRVN4RzJFTDdmM21ZcGdweERqNjhTR0ptVmRwIiwidmVyc2lvbiI6MC4xfQ.MlbMcKeo95H0-YpvHXD8OMFydmIVqmNKTZVfS6gWXDM\"",
+									"                    ]",
+									"                },",
+									"                \"created_at\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"date-time\",",
+									"                    \"examples\": [\"2019-06-01T00:04:40.057Z\"]",
+									"                },",
+									"                \"last_seen_at\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"date-time\",",
+									"                    \"examples\": [\"2019-06-03T17:15:04.023Z\"]",
+									"                },",
+									"                \"approved_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"escalated_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"mitigated_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"context\": {",
+									"                    \"$ref\": \"#/definitions/context\"",
+									"                },",
+									"                \"is_current_device\": {",
+									"                    \"type\": \"boolean\"",
+									"                }",
+									"            }",
+									"        },",
+									"        \"context\": {",
+									"            \"id\": \"#/definitions/context\",",
+									"            \"title\": \"Context Schema\",",
+									"            \"description\": \"The originating http request context\",",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"ip\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"ipv4\",",
+									"                    \"examples\": [\"172.112.41.67\"]",
+									"                },",
+									"                \"location\": {",
+									"                    \"$ref\": \"#/definitions/location\"",
+									"                },",
+									"                \"user_agent\": {",
+									"                    \"$ref\": \"#/definitions/user_agent\"",
+									"                },",
+									"                \"properties\": {",
+									"                    \"type\": \"object\"",
+									"                },",
+									"                \"type\": {",
+									"                    \"type\": \"string\"",
+									"                }",
+									"            }",
+									"        },",
+									"        \"location\": {",
+									"            \"id\": \"#/definitions/location\",",
+									"            \"title\": \"Location Schema\",",
+									"            \"description\": \"An object with properties that describe a geographic location\",",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"country_code\": {",
+									"                    \"type\": \"string\",",
+									"                    \"minLength\": 2,",
+									"                    \"maxLength\": 2,",
+									"                    \"examples\": [\"US\"]",
+									"                },",
+									"                \"country\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"United States\"]",
+									"                },",
+									"                \"region\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"California\"]",
+									"                },",
+									"                \"region_code\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"CA\"]",
+									"                },",
+									"                \"city\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"Garden Grove\"]",
+									"                },",
+									"                \"lat\": {",
+									"                    \"type\": \"number\",",
+									"                    \"examples\": [33.7832]",
+									"                },",
+									"                \"lon\": {",
+									"                    \"type\": \"number\",",
+									"                    \"examples\": [-117.9773]",
+									"                }",
+									"            }",
+									"        },",
+									"        \"user_agent\": {",
+									"            \"id\": \"#/definitions/user_agent\",",
+									"            \"title\": \"User Agent Schema\",",
+									"            \"description\": \"The User Agent details of the originating request (i.e. browser, platform, versions, etc)\",",
+									"            \"type\": \"object\",",
+									"            \"required\": [\"raw\"],",
+									"            \"properties\": {",
+									"                \"raw\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15\"]",
+									"                },",
+									"                \"browser\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Safari\"]",
+									"                },",
+									"                \"version\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"12.1.1\"]",
+									"                },",
+									"                \"os\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mac OS X 10.14.5\"]",
+									"                },",
+									"                \"mobile\": {",
+									"                    \"type\": \"boolean\",",
+									"                    \"examples\": [false]",
+									"                },",
+									"                \"platform\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mac OS X\"]",
+									"                },",
+									"                \"device\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Unknown\"]",
+									"                },",
+									"                \"family\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Safari\"]",
+									"                }",
+									"            }",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response adheres to schema\", function () {",
+									"    pm.expect(tv4.validate(responseSchema, pm.response.json())).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.castle.io/v1/users/{{user_id}}/devices",
+							"protocol": "https",
+							"host": [
+								"api",
+								"castle",
+								"io"
+							],
+							"path": [
+								"v1",
+								"users",
+								"{{user_id}}",
+								"devices"
+							]
+						},
+						"description": "Using a user ID, get all devices associated with that user"
+					},
+					"response": []
+				},
+				{
+					"name": "Device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "31ec1369-fc1b-4d0d-86f7-4a92f7e61a18",
+								"exec": [
+									"var responseSchema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema\",",
+									"    \"$id\": \"https://castle.io/schemas/user-devices.json\",",
+									"    \"type\": \"object\",",
+									"    \"title\": \"User Device\",",
+									"    \"required\": \"data\",",
+									"    \"properties\": {",
+									"        \"data\": {",
+									"            \"type\": \"object\",",
+									"            \"$ref\": \"#/definitions/user_device\"",
+									"        }",
+									"    },",
+									"    \"definitions\": {",
+									"        \"user_device\": {",
+									"            \"$id\": \"#/definitions/user_device\",",
+									"            \"title\": \"Device Schema\",",
+									"            \"description\": \"Details about a single device of a user\",",
+									"            \"type\": \"object\",",
+									"            \"required\": [",
+									"                \"token\",",
+									"                \"created_at\"",
+									"            ],",
+									"            \"properties\": {",
+									"                \"token\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [",
+									"                        \"eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlbiI6ImhZeDNtRVN4RzJFTDdmM21ZcGdweERqNjhTR0ptVmRwIiwidmVyc2lvbiI6MC4xfQ.MlbMcKeo95H0-YpvHXD8OMFydmIVqmNKTZVfS6gWXDM\"",
+									"                    ]",
+									"                },",
+									"                \"created_at\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"date-time\",",
+									"                    \"examples\": [\"2019-06-01T00:04:40.057Z\"]",
+									"                },",
+									"                \"last_seen_at\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"date-time\",",
+									"                    \"examples\": [\"2019-06-03T17:15:04.023Z\"]",
+									"                },",
+									"                \"approved_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"escalated_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"mitigated_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"context\": {",
+									"                    \"$ref\": \"#/definitions/context\"",
+									"                },",
+									"                \"is_current_device\": {",
+									"                    \"type\": \"boolean\"",
+									"                }",
+									"            }",
+									"        },",
+									"        \"context\": {",
+									"            \"id\": \"#/definitions/context\",",
+									"            \"title\": \"Context Schema\",",
+									"            \"description\": \"The originating http request context\",",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"ip\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"ipv4\",",
+									"                    \"examples\": [\"172.112.41.67\"]",
+									"                },",
+									"                \"location\": {",
+									"                    \"$ref\": \"#/definitions/location\"",
+									"                },",
+									"                \"user_agent\": {",
+									"                    \"$ref\": \"#/definitions/user_agent\"",
+									"                },",
+									"                \"properties\": {",
+									"                    \"type\": \"object\"",
+									"                },",
+									"                \"type\": {",
+									"                    \"type\": \"string\"",
+									"                }",
+									"            }",
+									"        },",
+									"        \"location\": {",
+									"            \"id\": \"#/definitions/location\",",
+									"            \"title\": \"Location Schema\",",
+									"            \"description\": \"An object with properties that describe a geographic location\",",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"country_code\": {",
+									"                    \"type\": \"string\",",
+									"                    \"minLength\": 2,",
+									"                    \"maxLength\": 2,",
+									"                    \"examples\": [\"US\"]",
+									"                },",
+									"                \"country\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"United States\"]",
+									"                },",
+									"                \"region\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"California\"]",
+									"                },",
+									"                \"region_code\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"CA\"]",
+									"                },",
+									"                \"city\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"Garden Grove\"]",
+									"                },",
+									"                \"lat\": {",
+									"                    \"type\": \"number\",",
+									"                    \"examples\": [33.7832]",
+									"                },",
+									"                \"lon\": {",
+									"                    \"type\": \"number\",",
+									"                    \"examples\": [-117.9773]",
+									"                }",
+									"            }",
+									"        },",
+									"        \"user_agent\": {",
+									"            \"id\": \"#/definitions/user_agent\",",
+									"            \"title\": \"User Agent Schema\",",
+									"            \"description\": \"The User Agent details of the originating request (i.e. browser, platform, versions, etc)\",",
+									"            \"type\": \"object\",",
+									"            \"required\": [\"raw\"],",
+									"            \"properties\": {",
+									"                \"raw\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15\"]",
+									"                },",
+									"                \"browser\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Safari\"]",
+									"                },",
+									"                \"version\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"12.1.1\"]",
+									"                },",
+									"                \"os\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mac OS X 10.14.5\"]",
+									"                },",
+									"                \"mobile\": {",
+									"                    \"type\": \"boolean\",",
+									"                    \"examples\": [false]",
+									"                },",
+									"                \"platform\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mac OS X\"]",
+									"                },",
+									"                \"device\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Unknown\"]",
+									"                },",
+									"                \"family\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Safari\"]",
+									"                }",
+									"            }",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response adheres to schema\", function () {",
+									"    pm.expect(tv4.validate(responseSchema, pm.response.json())).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.castle.io/v1/devices/{{device_token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"castle",
+								"io"
+							],
+							"path": [
+								"v1",
+								"devices",
+								"{{device_token}}"
+							]
+						},
+						"description": "Using a device token, get information about that device"
+					},
+					"response": []
+				},
+				{
+					"name": "Approve a Device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "afaca165-b393-4ec1-b74a-3159b3bc7b84",
+								"exec": [
+									"var responseSchema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema\",",
+									"    \"$id\": \"https://castle.io/schemas/user-device.json\",",
+									"    \"type\": \"object\",",
+									"    \"title\": \"User Device\",",
+									"    \"required\": \"data\",",
+									"    \"properties\": {",
+									"        \"data\": {",
+									"            \"type\": \"object\",",
+									"            \"$ref\": \"#/definitions/user_device\"",
+									"        }",
+									"    },",
+									"    \"definitions\": {",
+									"        \"user_device\": {",
+									"            \"$id\": \"#/definitions/user_device\",",
+									"            \"title\": \"Device Schema\",",
+									"            \"description\": \"Details about a single device of a user\",",
+									"            \"type\": \"object\",",
+									"            \"required\": [",
+									"                \"token\",",
+									"                \"created_at\"",
+									"            ],",
+									"            \"properties\": {",
+									"                \"token\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [",
+									"                        \"eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlbiI6ImhZeDNtRVN4RzJFTDdmM21ZcGdweERqNjhTR0ptVmRwIiwidmVyc2lvbiI6MC4xfQ.MlbMcKeo95H0-YpvHXD8OMFydmIVqmNKTZVfS6gWXDM\"",
+									"                    ]",
+									"                },",
+									"                \"created_at\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"date-time\",",
+									"                    \"examples\": [\"2019-06-01T00:04:40.057Z\"]",
+									"                },",
+									"                \"last_seen_at\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"date-time\",",
+									"                    \"examples\": [\"2019-06-03T17:15:04.023Z\"]",
+									"                },",
+									"                \"approved_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"escalated_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"mitigated_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"context\": {",
+									"                    \"$ref\": \"#/definitions/context\"",
+									"                },",
+									"                \"is_current_device\": {",
+									"                    \"type\": \"boolean\"",
+									"                }",
+									"            }",
+									"        },",
+									"        \"context\": {",
+									"            \"id\": \"#/definitions/context\",",
+									"            \"title\": \"Context Schema\",",
+									"            \"description\": \"The originating http request context\",",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"ip\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"ipv4\",",
+									"                    \"examples\": [\"172.112.41.67\"]",
+									"                },",
+									"                \"location\": {",
+									"                    \"$ref\": \"#/definitions/location\"",
+									"                },",
+									"                \"user_agent\": {",
+									"                    \"$ref\": \"#/definitions/user_agent\"",
+									"                },",
+									"                \"properties\": {",
+									"                    \"type\": \"object\"",
+									"                },",
+									"                \"type\": {",
+									"                    \"type\": \"string\"",
+									"                }",
+									"            }",
+									"        },",
+									"        \"location\": {",
+									"            \"id\": \"#/definitions/location\",",
+									"            \"title\": \"Location Schema\",",
+									"            \"description\": \"An object with properties that describe a geographic location\",",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"country_code\": {",
+									"                    \"type\": \"string\",",
+									"                    \"minLength\": 2,",
+									"                    \"maxLength\": 2,",
+									"                    \"examples\": [\"US\"]",
+									"                },",
+									"                \"country\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"United States\"]",
+									"                },",
+									"                \"region\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"California\"]",
+									"                },",
+									"                \"region_code\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"CA\"]",
+									"                },",
+									"                \"city\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"Garden Grove\"]",
+									"                },",
+									"                \"lat\": {",
+									"                    \"type\": \"number\",",
+									"                    \"examples\": [33.7832]",
+									"                },",
+									"                \"lon\": {",
+									"                    \"type\": \"number\",",
+									"                    \"examples\": [-117.9773]",
+									"                }",
+									"            }",
+									"        },",
+									"        \"user_agent\": {",
+									"            \"id\": \"#/definitions/user_agent\",",
+									"            \"title\": \"User Agent Schema\",",
+									"            \"description\": \"The User Agent details of the originating request (i.e. browser, platform, versions, etc)\",",
+									"            \"type\": \"object\",",
+									"            \"required\": [\"raw\"],",
+									"            \"properties\": {",
+									"                \"raw\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15\"]",
+									"                },",
+									"                \"browser\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Safari\"]",
+									"                },",
+									"                \"version\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"12.1.1\"]",
+									"                },",
+									"                \"os\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mac OS X 10.14.5\"]",
+									"                },",
+									"                \"mobile\": {",
+									"                    \"type\": \"boolean\",",
+									"                    \"examples\": [false]",
+									"                },",
+									"                \"platform\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mac OS X\"]",
+									"                },",
+									"                \"device\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Unknown\"]",
+									"                },",
+									"                \"family\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Safari\"]",
+									"                }",
+									"            }",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response adheres to schema\", function () {",
+									"    pm.expect(tv4.validate(responseSchema, pm.response.json())).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://api.castle.io/v1/devices/{{device_token}}/approve",
+							"protocol": "https",
+							"host": [
+								"api",
+								"castle",
+								"io"
+							],
+							"path": [
+								"v1",
+								"devices",
+								"{{device_token}}",
+								"approve"
+							]
+						},
+						"description": "Approve a device using its device token"
+					},
+					"response": []
+				},
+				{
+					"name": "Report a Device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b9a42cd-0843-4cd4-8923-9ed30b642647",
+								"exec": [
+									"var responseSchema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema\",",
+									"    \"$id\": \"https://castle.io/schemas/user-device.json\",",
+									"    \"type\": \"object\",",
+									"    \"title\": \"User Device\",",
+									"    \"required\": \"data\",",
+									"    \"properties\": {",
+									"        \"data\": {",
+									"            \"type\": \"object\",",
+									"            \"$ref\": \"#/definitions/user_device\"",
+									"        }",
+									"    },",
+									"    \"definitions\": {",
+									"        \"user_device\": {",
+									"            \"$id\": \"#/definitions/user_device\",",
+									"            \"title\": \"Device Schema\",",
+									"            \"description\": \"Details about a single device of a user\",",
+									"            \"type\": \"object\",",
+									"            \"required\": [",
+									"                \"token\",",
+									"                \"created_at\"",
+									"            ],",
+									"            \"properties\": {",
+									"                \"token\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [",
+									"                        \"eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlbiI6ImhZeDNtRVN4RzJFTDdmM21ZcGdweERqNjhTR0ptVmRwIiwidmVyc2lvbiI6MC4xfQ.MlbMcKeo95H0-YpvHXD8OMFydmIVqmNKTZVfS6gWXDM\"",
+									"                    ]",
+									"                },",
+									"                \"created_at\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"date-time\",",
+									"                    \"examples\": [\"2019-06-01T00:04:40.057Z\"]",
+									"                },",
+									"                \"last_seen_at\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"date-time\",",
+									"                    \"examples\": [\"2019-06-03T17:15:04.023Z\"]",
+									"                },",
+									"                \"approved_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"escalated_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"mitigated_at\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"format\": \"date-time\"",
+									"                },",
+									"                \"context\": {",
+									"                    \"$ref\": \"#/definitions/context\"",
+									"                },",
+									"                \"is_current_device\": {",
+									"                    \"type\": \"boolean\"",
+									"                }",
+									"            }",
+									"        },",
+									"        \"context\": {",
+									"            \"id\": \"#/definitions/context\",",
+									"            \"title\": \"Context Schema\",",
+									"            \"description\": \"The originating http request context\",",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"ip\": {",
+									"                    \"type\": \"string\",",
+									"                    \"format\": \"ipv4\",",
+									"                    \"examples\": [\"172.112.41.67\"]",
+									"                },",
+									"                \"location\": {",
+									"                    \"$ref\": \"#/definitions/location\"",
+									"                },",
+									"                \"user_agent\": {",
+									"                    \"$ref\": \"#/definitions/user_agent\"",
+									"                },",
+									"                \"properties\": {",
+									"                    \"type\": \"object\"",
+									"                },",
+									"                \"type\": {",
+									"                    \"type\": \"string\"",
+									"                }",
+									"            }",
+									"        },",
+									"        \"location\": {",
+									"            \"id\": \"#/definitions/location\",",
+									"            \"title\": \"Location Schema\",",
+									"            \"description\": \"An object with properties that describe a geographic location\",",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"                \"country_code\": {",
+									"                    \"type\": \"string\",",
+									"                    \"minLength\": 2,",
+									"                    \"maxLength\": 2,",
+									"                    \"examples\": [\"US\"]",
+									"                },",
+									"                \"country\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"United States\"]",
+									"                },",
+									"                \"region\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"California\"]",
+									"                },",
+									"                \"region_code\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"CA\"]",
+									"                },",
+									"                \"city\": {",
+									"                    \"type\": [",
+									"                        \"null\",",
+									"                        \"string\"",
+									"                    ],",
+									"                    \"examples\": [\"Garden Grove\"]",
+									"                },",
+									"                \"lat\": {",
+									"                    \"type\": \"number\",",
+									"                    \"examples\": [33.7832]",
+									"                },",
+									"                \"lon\": {",
+									"                    \"type\": \"number\",",
+									"                    \"examples\": [-117.9773]",
+									"                }",
+									"            }",
+									"        },",
+									"        \"user_agent\": {",
+									"            \"id\": \"#/definitions/user_agent\",",
+									"            \"title\": \"User Agent Schema\",",
+									"            \"description\": \"The User Agent details of the originating request (i.e. browser, platform, versions, etc)\",",
+									"            \"type\": \"object\",",
+									"            \"required\": [\"raw\"],",
+									"            \"properties\": {",
+									"                \"raw\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15\"]",
+									"                },",
+									"                \"browser\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Safari\"]",
+									"                },",
+									"                \"version\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"12.1.1\"]",
+									"                },",
+									"                \"os\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mac OS X 10.14.5\"]",
+									"                },",
+									"                \"mobile\": {",
+									"                    \"type\": \"boolean\",",
+									"                    \"examples\": [false]",
+									"                },",
+									"                \"platform\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Mac OS X\"]",
+									"                },",
+									"                \"device\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Unknown\"]",
+									"                },",
+									"                \"family\": {",
+									"                    \"type\": \"string\",",
+									"                    \"examples\": [\"Safari\"]",
+									"                }",
+									"            }",
+									"        }",
+									"    }",
+									"};",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response adheres to schema\", function () {",
+									"    pm.expect(tv4.validate(responseSchema, pm.response.json())).to.be.true;",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://api.castle.io/v1/devices/{{device_token}}/report",
+							"protocol": "https",
+							"host": [
+								"api",
+								"castle",
+								"io"
+							],
+							"path": [
+								"v1",
+								"devices",
+								"{{device_token}}",
+								"report"
+							]
+						},
+						"description": "Report a device using its device token"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints related to user device management"
+		},
+		{
+			"name": "Development Utilities",
+			"item": [
+				{
+					"name": "Impersonate a User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8011786-16df-44af-9e61-4a413bbb0306",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"impersonator\": \"optional_admin_id_or_email\",\n  \"context\": {\n    \"client_id\": \"a97b492d-dcc3-4fc1-87d6-65682955afa5\",\n    \"ip\": \"37.46.187.90\",\n    \"user-agent\": \"Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko\"\n  }\n}"
+						},
+						"url": {
+							"raw": "https://api.castle.io/v1/impersonate",
+							"protocol": "https",
+							"host": [
+								"api",
+								"castle",
+								"io"
+							],
+							"path": [
+								"v1",
+								"impersonate"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc646bbc-86ee-4c5d-8398-f9e78770c737",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3524e9b3-9bfb-4e5b-9ba3-f443e3ba15f8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{castle_api_secret}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "cdee1694-d6cd-46fc-a44f-83c1b32561ee",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "56f3a201-c9a1-415c-9f61-447a4f2caa7d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
