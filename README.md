@@ -1,6 +1,6 @@
 # Castle Postman Collections
 
-Collections and Environments for use with [Postman](https://www.getpostman.com/).
+Castle Collections and Environments for use with [Postman](https://www.getpostman.com/).
 
 Postman is a popular application for exploring API's through an intuitive interface. Many companies choose to use Postman for generating their API documentation. Many also offer collections for download so that API consumers can more easily explore API functionality.
 
