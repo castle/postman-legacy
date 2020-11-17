@@ -1,3 +1,7 @@
+**This repository is no longer being maintained**
+
+See [github.com/castle/castle-postman](https://github.com/castle/castle-postman) for the new and improved Castle Postman collection!
+
 # Castle Postman Collections
 
 Castle Collections and Environments for use with [Postman](https://www.getpostman.com/).
